@@ -24,7 +24,11 @@ const Graph = ({ data,coin}) => {
         width={Dimensions.get("window").width - 5} // from react-native
         height={300}
         segments={6}
-       
+        onDataPointClick={({ value,dataset }) => {
+          console.log(value,dataset);
+          
+      }}
+      fromZero={true}
         withVerticalLines={false}
         withHorizontalLines={false}
         chartConfig={{
@@ -39,8 +43,12 @@ const Graph = ({ data,coin}) => {
           propsForVerticalLabels: {
             fontSize: 12,
           },
+          propsForDots:{
+            r:2
+          }
         }}
-        withDots={false}
+        withDots={true}
+        
         // bezier
         yAxisInterval={1}
         verticalLabelRotation={40}
