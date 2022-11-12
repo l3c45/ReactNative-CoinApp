@@ -1,10 +1,13 @@
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Text, View ,Image,StyleSheet} from 'react-native'
+import { Text, View ,Image,StyleSheet, TouchableOpacity} from 'react-native'
 
 const Item = ({coin}) => {
+
+    const navigation = useNavigation();
     
   return (
-    
+    <TouchableOpacity onPress={()=>  navigation.navigate('Detail', { coin })}>
   <View style={styles.itemList} >
     <View style={styles.logoName}>
         <Image style={styles.logo} source={{uri:coin.image}} ></Image>
@@ -15,6 +18,8 @@ const Item = ({coin}) => {
         <Text style={[styles.percentage , coin.price_change_percentage_24h>0 ?styles.up :styles.down]} >{coin.price_change_percentage_24h} </Text>
   </View>
   </View>
+</TouchableOpacity>
+
     
 
   )
