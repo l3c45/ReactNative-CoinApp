@@ -120,7 +120,7 @@ const Graph = ({ dataApi,coin}) => {
           if (dataPointIndex === tooltipPos.index) {
           return 'red';
           }
-          return "blue";
+          return "transparent";
           }}
         
       />
