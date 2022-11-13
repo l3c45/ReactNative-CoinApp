@@ -6,11 +6,13 @@ import {
   Image,
   ScrollView,
   RefreshControl,
+  Share
 } from "react-native";
 import Graph from "../components/Graph";
 import { APICoin } from "../utils/API";
 import { Button } from "@rneui/themed";
 import * as WebBrowser from 'expo-web-browser';
+
 
 const Coindetail = ({ route }) => {
   const coin = route.params.coin;
@@ -34,6 +36,27 @@ const Coindetail = ({ route }) => {
     let result = await WebBrowser.openBrowserAsync(`https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`);
     setResult(result);
   };
+
+  
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+       message:`https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`,
+
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }}
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -120,8 +143,8 @@ const Coindetail = ({ route }) => {
           />
         )}
       </View>
-      <Button  buttonStyle={{marginTop:0,marginBottom:50}} title="More info..." onPress={_handlePressButtonAsync} />
-      
+      <Button  buttonStyle={{marginTop:0,marginBottom:20}} title="More info..." onPress={_handlePressButtonAsync} />
+      <Button  color="warning" buttonStyle={{marginTop:0,marginBottom:20}} title="Share" onPress={onShare} />
     </ScrollView>
   );
 };
