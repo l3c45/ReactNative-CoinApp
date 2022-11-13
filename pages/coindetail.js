@@ -83,7 +83,7 @@ const Coindetail = ({ route }) => {
         </Text>
       </View>
 {
-  data && <Graph data={data} coin={coin}></Graph>
+  data && <Graph dataApi={data} coin={coin}></Graph>
 }
  
  
