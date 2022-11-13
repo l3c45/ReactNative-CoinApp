@@ -9,7 +9,7 @@ const Graph = ({ dataApi,coin}) => {
   const offset = Math.round(dataApi.prices.length / 4);
 
   const [tooltipPos,setTooltipPos] = useState(
-    { x:0, y:0, date:null ,visible:false, value:0 })
+    { x:0, y:0, date:null ,visible:false, value:0,index:null })
     
 
 
@@ -51,7 +51,7 @@ const Graph = ({ dataApi,coin}) => {
                                 })
                           : 
                         setTooltipPos({x: data.x, date: selectedDate,
-                           value: data.value, y: data.y,
+                           value: data.value, y: data.y,index:data.index,
                            visible: true
                         });
            }
@@ -80,10 +80,10 @@ const Graph = ({ dataApi,coin}) => {
         decorator={() => {
           return tooltipPos.visible ? <View>
            <Svg>
-              <Rect x={tooltipPos.x<356?tooltipPos.x-60:tooltipPos.x-100} y={tooltipPos.y +10} width="100"  
+              <Rect x={tooltipPos.x<300?tooltipPos.x-60:tooltipPos.x-100} y={tooltipPos.y +10} width="100"  
                height="60" fill="black" />
               <TextSVG
-                 x={tooltipPos.x<356?tooltipPos.x-60:tooltipPos.x-90}
+                 x={tooltipPos.x<300?tooltipPos.x-60:tooltipPos.x-90}
                  y={tooltipPos.y + 30}
                  fill="white"
                  fontSize="16"
@@ -93,7 +93,7 @@ const Graph = ({ dataApi,coin}) => {
                  ${tooltipPos.value.toFixed(2)}
                    </TextSVG>
                    <TextSVG
-                 x={tooltipPos.x<356?tooltipPos.x-60:tooltipPos.x-85}
+                 x={tooltipPos.x<300?tooltipPos.x-60:tooltipPos.x-85}
                  y={tooltipPos.y + 60}
                  fill="white"
                  fontSize="16"
@@ -115,6 +115,13 @@ const Graph = ({ dataApi,coin}) => {
           
          
         }}
+        
+        getDotColor={(dataPoint, dataPointIndex) => {
+          if (dataPointIndex === tooltipPos.index) {
+          return 'red';
+          }
+          return "blue";
+          }}
         
       />
     </View>
