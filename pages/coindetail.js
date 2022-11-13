@@ -9,13 +9,14 @@ import {
 } from "react-native";
 import Graph from "../components/Graph";
 import { APICoin } from "../utils/API";
-import { Button, Icon } from "@rneui/themed";
+import { Button } from "@rneui/themed";
+import * as WebBrowser from 'expo-web-browser';
 
 const Coindetail = ({ route }) => {
   const coin = route.params.coin;
 
   const [refreshing, setRefreshing] = useState(false);
-
+  const [result, setResult] = useState(null);
   const [data, setData] = useState();
 
   const getData = async (coin) => {
@@ -27,6 +28,12 @@ const Coindetail = ({ route }) => {
   useEffect(() => {
     getData(coin);
   }, []);
+
+  const _handlePressButtonAsync = async () => {
+
+    let result = await WebBrowser.openBrowserAsync(`https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`);
+    setResult(result);
+  };
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -106,13 +113,15 @@ const Coindetail = ({ route }) => {
           <Graph dataApi={data} coin={coin}></Graph>
         ) : (
           <Button
-          buttonStyle={{marginTop:180}}
+          buttonStyle={{marginTop:50,marginBottom:50}}
             title="Solid"
             type="clear"
             loading
           />
         )}
       </View>
+      <Button  buttonStyle={{marginTop:0,marginBottom:50}} title="More info..." onPress={_handlePressButtonAsync} />
+      
     </ScrollView>
   );
 };
