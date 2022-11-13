@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Coindetail from "./pages/coindetail";
 import { StatusBar } from "react-native";
+import Login from "./pages/login";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,8 @@ export default function App() {
             headerShown: false,
           }}
         >
+          <Stack.Screen name="Login" component={Login} />
+
           <Stack.Screen name="Home" component={Homescreen} />
           <Stack.Screen name="Detail" component={Coindetail} />
         </Stack.Navigator>

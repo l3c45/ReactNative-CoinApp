@@ -22,6 +22,7 @@
     "expo": "~47.0.3",
     "expo-status-bar": "~1.4.2",
     "expo-web-browser": "~12.0.0",
+    "formik": "^2.2.9",
     "moments": "^0.0.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -32,7 +33,8 @@
     "react-native-screens": "~3.18.0",
     "react-native-share": "^8.0.0",
     "react-native-svg": "^13.5.0",
-    "react-native-web": "~0.18.9"
+    "react-native-web": "~0.18.9",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -6,13 +6,12 @@ import {
   Image,
   ScrollView,
   RefreshControl,
-  Share
+  Share,
 } from "react-native";
 import Graph from "../components/Graph";
 import { APICoin } from "../utils/API";
 import { Button } from "@rneui/themed";
-import * as WebBrowser from 'expo-web-browser';
-
+import * as WebBrowser from "expo-web-browser";
 
 const Coindetail = ({ route }) => {
   const coin = route.params.coin;
@@ -32,18 +31,16 @@ const Coindetail = ({ route }) => {
   }, []);
 
   const _handlePressButtonAsync = async () => {
-
-    let result = await WebBrowser.openBrowserAsync(`https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`);
+    let result = await WebBrowser.openBrowserAsync(
+      `https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`
+    );
     setResult(result);
   };
-
-  
 
   const onShare = async () => {
     try {
       const result = await Share.share({
-       message:`https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`,
-
+        message: `https://www.coingecko.com/es/monedas/${coin.name.toLowerCase()}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -56,7 +53,8 @@ const Coindetail = ({ route }) => {
       }
     } catch (error) {
       alert(error.message);
-    }}
+    }
+  };
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -136,15 +134,24 @@ const Coindetail = ({ route }) => {
           <Graph dataApi={data} coin={coin}></Graph>
         ) : (
           <Button
-          buttonStyle={{marginTop:50,marginBottom:50}}
+            buttonStyle={{ marginTop: 50, marginBottom: 50 }}
             title="Solid"
             type="clear"
             loading
           />
         )}
       </View>
-      <Button  buttonStyle={{marginTop:0,marginBottom:20}} title="More info..." onPress={_handlePressButtonAsync} />
-      <Button  color="warning" buttonStyle={{marginTop:0,marginBottom:20}} title="Share" onPress={onShare} />
+      <Button
+        buttonStyle={{ marginTop: 0, marginBottom: 20 }}
+        title="More info..."
+        onPress={_handlePressButtonAsync}
+      />
+      <Button
+        color="warning"
+        buttonStyle={{ marginTop: 0, marginBottom: 20 }}
+        title="Share"
+        onPress={onShare}
+      />
     </ScrollView>
   );
 };
