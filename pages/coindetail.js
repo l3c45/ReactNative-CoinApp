@@ -106,6 +106,7 @@ const Coindetail = ({ route }) => {
           <Graph dataApi={data} coin={coin}></Graph>
         ) : (
           <Button
+          buttonStyle={{marginTop:180}}
             title="Solid"
             type="clear"
             loading
