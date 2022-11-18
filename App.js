@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Coindetail from "./pages/coindetail";
 import { StatusBar } from "react-native";
 import Login from "./pages/login";
+import Register from "./pages/Register"
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export default function App() {
             headerShown: false,
           }}
         >
+        <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" component={Login} />
 
           <Stack.Screen name="Home" component={Homescreen} />
