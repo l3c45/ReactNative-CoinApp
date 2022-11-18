@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, Text, View } from "react-native";
+import { StyleSheet, TextInput, Text, ScrollView,View } from "react-native";
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,34 +7,34 @@ import { Button, Divider } from "@rneui/themed";
 const LoginForm = () => {
   return (
     <Formik
-      initialValues={{ user: "", password: "" }}
+      initialValues={{ email: "", password: "" }}
       validationSchema={Yup.object({
-        user: Yup.string()
-          .max(20, "Must be 20 characters or less")
-          .required("Required"),
+        email: Yup.string().email("Enter a valid Email").required("Required"),
         password: Yup.string()
-          .min(8, "Must be 8 characters or more")
+          .min(6, "Must be 6 characters or more")
           .required("Required"),
       })}
       onSubmit={(values) => console.log(values)}
     >
-      {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-        <View style={styles.form}>
+      {({ handleChange, handleSubmit, values, errors }) => (
+        <ScrollView contentContainerStyle={styles.form}>
           <TextInput
             style={styles.textInput}
-            onChangeText={handleChange("user")}
-            onBlur={handleBlur("user")}
-            value={values.user}
+            onChangeText={handleChange("email")}
+            value={values.email}
             selectionColor={"#fff"}
+            placeholder={"Email"}
+            placeholderTextColor={"#fff"}
           />
-          {errors.user && <Text style={styles.error}>{errors.user}</Text>}
+          {errors.email && <Text style={styles.error}>{errors.email}</Text>}
           <TextInput
             style={styles.textInput}
             onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
             value={values.password}
             secureTextEntry={true}
             selectionColor={"#fff"}
+            placeholder={"Contraseña"}
+            placeholderTextColor={"#fff"}
           />
           {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
@@ -60,7 +60,7 @@ const LoginForm = () => {
               type="clear"
             ></Button>
           </View>
-        </View>
+        </ScrollView>
       )}
     </Formik>
   );
@@ -71,34 +71,28 @@ export default LoginForm;
 const styles = StyleSheet.create({
   form: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+   alignItems:"center",
   },
   textInput: {
     padding: 10,
     marginVertical: 10,
     backgroundColor: "#47494A",
-    marginHorizontal: 30,
     height: 40,
-    width: 350,
+    width: "95%",
     color:"#fff",
-    fontSize:20
+    fontSize:16
   },
   button: {
     marginVertical: 20,
     width: 200,
-    marginHorizontal: "auto",
     backgroundColor: "#3F59DE",
   },
   footer: {
     display: "flex",
     flexDirection: "row",
-
-    alignContent: "center",
+    paddingBottom:30,
+    alignItems: "center",
     justifyContent: "center",
-  },
-  footerBtn: {
-    paddingTop: 0,
   },
   error: {
     color: "red",
