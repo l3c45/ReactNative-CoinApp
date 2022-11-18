@@ -18,10 +18,9 @@ export default function App() {
             headerShown: false,
           }}
         >
-        <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Login" component={Login} />
-
-          <Stack.Screen name="Home" component={Homescreen} />
+   <Stack.Screen name="Login" component={Login} />
+   <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen  name="Home" component={Homescreen} />
           <Stack.Screen name="Detail" component={Coindetail} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -4,11 +4,15 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, Divider } from "@rneui/themed";
 import { loginUser } from "../firebase/Session";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginForm = () => {
 
+  const navigation=useNavigation()
+
   const login= async (user)=> {
    const loginUserForm=await loginUser(user)
+   loginUserForm && navigation.replace("Home")
   }
   return (
     <Formik
@@ -63,6 +67,7 @@ const LoginForm = () => {
               buttonStyle={styles.footerBtn}
               title="Crea una cuenta"
               type="clear"
+              onPress={()=>navigation.navigate("Register")}
             ></Button>
           </View>
         </ScrollView>
