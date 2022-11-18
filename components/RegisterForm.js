@@ -3,8 +3,14 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "@rneui/themed";
+import { saveNewUser } from "../firebase/Session";
 
 const RegisterForm = () => {
+
+  const saveUser = async (user)=>{
+const newuser=await saveNewUser(user)
+  }
+
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -17,7 +23,7 @@ const RegisterForm = () => {
           .oneOf([Yup.ref("password"), null], "Passwords must match")
           .required("Required"),
       })}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => saveUser(values)}
     >
       {({ handleChange, handleSubmit, values, errors }) => (
         <ScrollView contentContainerStyle={styles.form}>

@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { auth } from "./Config";
 
-export const saveNewUserAuth = async (user) => {
+export const saveNewUser = async (user) => {
   try {
     const create = await createUserWithEmailAndPassword(
       auth,

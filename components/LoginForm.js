@@ -3,8 +3,13 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, Divider } from "@rneui/themed";
+import { loginUser } from "../firebase/Session";
 
 const LoginForm = () => {
+
+  const login= async (user)=> {
+   const loginUserForm=await loginUser(user)
+  }
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -14,7 +19,7 @@ const LoginForm = () => {
           .min(6, "Must be 6 characters or more")
           .required("Required"),
       })}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => login(values)}
     >
       {({ handleChange, handleSubmit, values, errors }) => (
         <ScrollView contentContainerStyle={styles.form}>
