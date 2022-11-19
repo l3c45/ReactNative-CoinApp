@@ -3,8 +3,28 @@ import {
   sendPasswordResetEmail,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "firebase/auth";
 import { auth } from "./Config";
+
+
+export const isLogged=  () =>{
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log("session  "+uid)
+     
+
+    } else {
+      console.log("no")
+      
+    }
+  });
+}
+
+
 
 
 export const saveNewUser = async (user) => {

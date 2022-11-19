@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Button,
   Keyboard,
   Alert,
   FlatList,
@@ -11,14 +12,16 @@ import {
 import {APIRequest} from "../utils/API"
 import { useEffect, useState } from "react";
 import Item from "../components/Item";
-
+import { signOutUser } from "../firebase/Session";
 import { Icon } from "@rneui/base";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Homescreen({}) {
   const [data, setData] = useState([]);
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
+const navigation=useNavigation()
 
   const getData = async () => {
     const data = await APIRequest();
@@ -36,7 +39,7 @@ export default function Homescreen({}) {
 
   return (
     <View style={styles.container}>
-      
+      <Button onPress={()=>{signOutUser(),navigation.replace("Login")}} title="Exit"></Button>
       <View style={styles.header}>
         <Text style={styles.title}>CryptoApp</Text>
         {search ? (
