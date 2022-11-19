@@ -27,7 +27,8 @@ export default function App() {
   const [token, setToken] = useState({ loading: true, token: false });
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    
+  const unsuscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
         console.log("session  " + uid);
@@ -36,6 +37,9 @@ export default function App() {
         setToken({ loading: false, token: false });
       }
     });
+
+return unsuscribe
+    
   }, []);
 
  

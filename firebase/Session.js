@@ -8,19 +8,13 @@ import {
 import { auth } from "./Config";
 
 
+
 export const isLogged=  () =>{
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log("session  "+uid)
-     
+      console.log("session  "+user.uid)
 
-    } else {
-      console.log("no")
-      
-    }
+    } 
   });
 }
 
