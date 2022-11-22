@@ -1,11 +1,13 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import React from "react";
+import React ,{useState}from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
 
-const FavoriteItem = ({ coin, notify ,remove}) => {
+const FavoriteItem = ({ coin, notify ,remove,getFavorites}) => {
   const navigation = useNavigation();
 
+  const [favorite, setFavorite] = useState(getFavorites)
+console.log(favorite)
   // const toggleNotification(element)=>{
 
   //     alert(element)

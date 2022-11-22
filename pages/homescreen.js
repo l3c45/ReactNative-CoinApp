@@ -9,32 +9,47 @@ import {
   TextInput,
   View,
 } from "react-native";
-import {APIRequest} from "../utils/API"
-import { useEffect, useState } from "react";
+import { APIRequest } from "../utils/API";
+import { useEffect, useState, useCallback } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
-import { Icon ,Avatar } from "@rneui/base";
-import { useNavigation } from "@react-navigation/native";
+import { Icon, Avatar } from "@rneui/base";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import {
+  deleteFromDB,
+  getFromDBandSet,
+  listener,
+  saveInDB,
+} from "../firebase/database";
 
-export default function Homescreen({}) {
+export default function Homescreen({ token }) {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
-const navigation=useNavigation()
+  const [favorite, setFavorite] = useState({});
 
   const getData = async () => {
     const data = await APIRequest();
     setData(data);
-   
   };
 
-  useEffect(() => {
-    getData();
-    
-    
-    
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+
+      getData();
+      const unsubscribe = listener(token,setFavorite)
+     
+      
+
+      return () => unsubscribe();
+    }, [])
+  );
+
+  const handleFavorite = (data) => {
+    getFromDBandSet(token, data.id)
+  };
 
   const handeTextInput = (input) => {
     setSearchTerm(input.toLowerCase());
@@ -72,12 +87,17 @@ const navigation=useNavigation()
       </View>
 
       <FlatList
+        keyExtractor={(item) => item.id}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
         style={styles.list}
         data={data.filter((data) =>
           data.name.toLowerCase().includes(searchTerm)
         )}
         refreshing={update}
-        renderItem={({ item }) => <Item coin={item}   />}
+        renderItem={({ item }) => (
+          <Item bgColor={() => "#fff"} coin={item} favorite={handleFavorite}  />
+        )}
         onRefresh={async () => {
           setUpdate(true);
           await getData();

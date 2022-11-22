@@ -2,16 +2,18 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, View ,Image,StyleSheet, TouchableOpacity} from 'react-native'
 
-const Item = ({coin}) => {
+const Item = ({coin,favorite,bgColor}) => {
 
     const navigation = useNavigation();
+
+   
     
   return (
-    <TouchableOpacity onPress={()=>  navigation.navigate('Detail', { coin })}>
+    <TouchableOpacity  onLongPress={()=>favorite(coin)} onPress={()=>  navigation.navigate('Detail', { coin })}>
   <View style={styles.itemList} >
     <View style={styles.logoName}>
         <Image style={styles.logo} source={{uri:coin.image}} ></Image>
-        <Text style={styles.name} >{coin.name} </Text>
+        <Text style={[styles.name,{color:bgColor}]} >{coin.name} </Text>
         </View>
    <View style={styles.data} >
         <Text style={styles.price} >{coin.current_price} US$ </Text>
@@ -40,7 +42,7 @@ const styles= StyleSheet.create({
     name:{
         
         fontSize: 22,
-        color:"#fff"
+        //color:"#fff"
     },
     itemList:{
         marginVertical:10,
