@@ -29,7 +29,7 @@ export const saveNewUser = async (user) => {
       user.password
     );
     return true;
-    console.log(create);
+    
   } catch {
     (e) => console.log(e);
   }

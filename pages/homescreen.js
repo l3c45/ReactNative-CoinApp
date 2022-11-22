@@ -14,6 +14,7 @@ import { useEffect, useState, useCallback } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
 import { Icon, Avatar } from "@rneui/base";
+
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import {
   deleteFromDB,
@@ -40,7 +41,7 @@ export default function Homescreen({ token }) {
 
       getData();
       const unsubscribe = listener(token,setFavorite)
-     
+     //signOutUser()
       
 
       return () => unsubscribe();
@@ -96,7 +97,7 @@ export default function Homescreen({ token }) {
         )}
         refreshing={update}
         renderItem={({ item }) => (
-          <Item bgColor={() => "#fff"} coin={item} favorite={handleFavorite}  />
+          <Item favoriteStyle={Object.keys(favorite).includes(item.id)?styles.favoriteStyle:null} coin={item} favorite={handleFavorite}  />
         )}
         onRefresh={async () => {
           setUpdate(true);
@@ -137,4 +138,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
   },
+  favoriteStyle:{
+    borderColor:"gold",
+    borderLeftWidth:1,
+    borderTopWidth:1,
+    borderStartColor:"#b0a310"
+
+    
+}
 });

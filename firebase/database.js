@@ -53,12 +53,14 @@ export const getFromDBandSet = async (uid, item) => {
   const favorites = docSnap.data();
 
   if (docSnap.exists()) {
+    
     if (favorites[item]) {
       deleteFromDB(item, uid);
     } else {
       saveInDB(item, uid);
     }
   } else {
-    console.log("No such document!");
+    saveInDB(item, uid)
+    console.log("No such document, create one!");
   }
 };

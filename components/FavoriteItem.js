@@ -1,17 +1,20 @@
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import React ,{useState}from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React ,{useState,useCallback}from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
+import { listener } from "../firebase/database";
 
-const FavoriteItem = ({ coin, notify ,remove,getFavorites}) => {
+const FavoriteItem = ({coin, notify ,remove}) => {
+  
   const navigation = useNavigation();
 
-  const [favorite, setFavorite] = useState(getFavorites)
-console.log(favorite)
+  
+
   // const toggleNotification(element)=>{
 
   //     alert(element)
   // }
+  
 
   return (
     <View style={styles.container}>
@@ -58,13 +61,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   name: {
-    fontSize: 22,
+    fontSize: 18,
     color: "#fff",
   },
   itemList: {
     marginVertical: 10,
     flexDirection: "row",
     paddingLeft: 10,
+    width:"50%"
     
     
   },

@@ -30,7 +30,7 @@ export default function App() {
     const unsuscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        //console.log("session  " + uid);
+        console.log("session  " + uid);
         setToken({ loading: false, token: true ,uid:uid });
       } else {
         setToken({ loading: false, token: false ,uid:null});
@@ -87,7 +87,12 @@ export default function App() {
  {(props) => <Homescreen token={token.uid} />}
                   </Stack.Screen>
                   <Stack.Screen name="Detail" component={Coindetail} />
-                  <Stack.Screen name="Profile" component={Profile} />
+
+                  <Stack.Screen name="Profile"  >
+
+                  {(props) => <Profile token={token.uid} />}
+                  </Stack.Screen>
+
                   <Stack.Screen name="Login" component={Login} />
                   <Stack.Screen name="Register" component={Register} />
                 </>
