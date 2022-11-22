@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, Text, ScrollView,View } from "react-native";
-import React from "react";
+import React ,{useState} from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, Divider } from "@rneui/themed";
@@ -8,11 +8,21 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginForm = () => {
 
+  const [error, setError] = useState(null)
+
   const navigation=useNavigation()
 
   const login= async (user)=> {
-   const loginUserForm=await loginUser(user)
-   loginUserForm && navigation.replace("Home")
+    try{
+
+      const loginUserForm=await loginUser(user)
+      
+      loginUserForm && navigation.replace("Home")
+      !loginUserForm && setError(true)
+    }catch{e=> console.log(e)
+
+    }
+   
   }
   return (
     <Formik
@@ -48,6 +58,7 @@ const LoginForm = () => {
           {errors.password && (
             <Text style={styles.error}>{errors.password}</Text>
           )}
+          {error?<Text style={styles.error}>Credenciales incorrectas</Text>:null}
           <Button
             buttonStyle={styles.button}
             onPress={handleSubmit}

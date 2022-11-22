@@ -5,6 +5,7 @@ import Coindetail from "./pages/coindetail";
 import { StatusBar } from "react-native";
 import Login from "./pages/login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 import { isLogged, signOutUser } from "./firebase/Session";
 import { useState, useEffect } from "react";
 import { addMethod } from "yup";
@@ -16,19 +17,17 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { Button,Icon } from "@rneui/themed";
 
 import { Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-
   const [token, setToken] = useState({ loading: true, token: false });
 
   useEffect(() => {
-    
-  const unsuscribe = onAuthStateChanged(auth, (user) => {
+    const unsuscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
         console.log("session  " + uid);
@@ -38,11 +37,9 @@ export default function App() {
       }
     });
 
-return unsuscribe
-    
+    return unsuscribe;
   }, []);
 
- 
   return (
     <>
       {token.loading ? (
@@ -58,8 +55,37 @@ return unsuscribe
             >
               {token.token ? (
                 <>
-                  <Stack.Screen name="Home" component={Homescreen} />
+                  <Stack.Screen
+                    options={({route,navigation})=> (
+                      {
+                      title: "CryptoApp",
+                      headerTitleStyle:{color:"#fff",fontSize:26},
+                      headerShown: true,
+                      headerStyle: { backgroundColor: "#112A40" },
+                      headerRight: () => (
+                        <Button
+                          buttonStyle={{  backgroundColor:"#000",width:50}}
+                          onPress={() => navigation.navigate("Profile") }
+                          title="Info"
+                          color="#fff"
+                        >
+                          
+                          <Icon
+                       
+                            name="user"
+                            type="feather"
+                            color="#fff"
+                          
+                          />
+                        </Button>
+                      ),
+                    }
+                    )}
+                    name="Home"
+                    component={Homescreen}
+                  />
                   <Stack.Screen name="Detail" component={Coindetail} />
+                  <Stack.Screen name="Profile" component={Profile} />
                   <Stack.Screen name="Login" component={Login} />
                   <Stack.Screen name="Register" component={Register} />
                 </>

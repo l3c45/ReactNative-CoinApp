@@ -28,6 +28,7 @@ export const saveNewUser = async (user) => {
       user.email,
       user.password
     );
+    return true;
     console.log(create);
   } catch {
     (e) => console.log(e);
@@ -45,6 +46,7 @@ export const loginUser = async (user) => {
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+  return false
 };
 
 export const signOutUser = async () => {

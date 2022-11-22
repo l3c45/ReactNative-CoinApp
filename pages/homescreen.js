@@ -13,7 +13,7 @@ import {APIRequest} from "../utils/API"
 import { useEffect, useState } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
-import { Icon } from "@rneui/base";
+import { Icon ,Avatar } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Homescreen({}) {
@@ -26,10 +26,13 @@ const navigation=useNavigation()
   const getData = async () => {
     const data = await APIRequest();
     setData(data);
+   
   };
 
   useEffect(() => {
     getData();
+    
+    
     
   }, []);
 
@@ -39,9 +42,8 @@ const navigation=useNavigation()
 
   return (
     <View style={styles.container}>
-      <Button onPress={()=>{signOutUser(),navigation.replace("Login")}} title="Exit"></Button>
       <View style={styles.header}>
-        <Text style={styles.title}>CryptoApp</Text>
+        <Text style={styles.title}></Text>
         {search ? (
           <TextInput
             onBlur={(e) => setSearch(false)}
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   header: {
-    paddingTop: 30,
+    paddingTop: 0,
     paddingHorizontal: 20,
     width: "100%",
     flexDirection: "row",

@@ -2,10 +2,10 @@ import { StyleSheet, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 import RegisterForm from "../components/RegisterForm"
 
-const Register = () => {
+const Register = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <RegisterForm></RegisterForm>
+      <RegisterForm nav={navigation}></RegisterForm>
     </SafeAreaView>
   )
 }

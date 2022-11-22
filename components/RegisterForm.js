@@ -5,10 +5,12 @@ import * as Yup from "yup";
 import { Button } from "@rneui/themed";
 import { saveNewUser } from "../firebase/Session";
 
-const RegisterForm = () => {
+
+const RegisterForm = ({nav}) => {
 
   const saveUser = async (user)=>{
 const newuser=await saveNewUser(user)
+newuser && nav.navigate("Login")
   }
 
   return (
