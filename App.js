@@ -18,6 +18,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { Button,Icon } from "@rneui/themed";
+import GlobalState from "./context/GlobalState";
 
 import { Text } from "react-native";
 
@@ -41,7 +42,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <GlobalState>
       {token.loading ? (
         <Text>Loading </Text>
       ) : (
@@ -108,6 +109,6 @@ export default function App() {
           </NavigationContainer>
         </>
       )}
-    </>
+    </GlobalState>
   );
 }

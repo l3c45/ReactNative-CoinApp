@@ -1,6 +1,4 @@
-import { StatusBar } from "expo-status-bar";
 import {
-  Button,
   Keyboard,
   Alert,
   FlatList,
@@ -9,47 +7,39 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { APIRequest } from "../utils/API";
-import { useEffect, useState, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
 import { Icon, Avatar } from "@rneui/base";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import {
-  deleteFromDB,
-  getFromDBandSet,
-  listener,
-  saveInDB,
-} from "../firebase/database";
+import { getFromDBandSet, listener } from "../firebase/database";
+
+import GlobalContext from "../context/GlobalContext";
 
 export default function Homescreen({ token }) {
   const navigation = useNavigation();
-  const [data, setData] = useState([]);
+
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
-  const [favorite, setFavorite] = useState({});
 
-  const getData = async () => {
-    const data = await APIRequest();
-    setData(data);
-  };
+  const { favorites, coins, getCoins, getFavorites } =
+    useContext(GlobalContext);
 
   useFocusEffect(
     useCallback(() => {
+      getCoins();
 
-      getData();
-      const unsubscribe = listener(token,setFavorite)
-     //signOutUser()
-      
+      const unsubscribe = listener(token, getFavorites);
+      //signOutUser()
 
       return () => unsubscribe();
     }, [])
   );
 
   const handleFavorite = (data) => {
-    getFromDBandSet(token, data.id)
+    getFromDBandSet(token, data.id);
   };
 
   const handeTextInput = (input) => {
@@ -92,12 +82,20 @@ export default function Homescreen({ token }) {
         initialNumToRender={20}
         maxToRenderPerBatch={20}
         style={styles.list}
-        data={data.filter((data) =>
+        data={coins.filter((data) =>
           data.name.toLowerCase().includes(searchTerm)
         )}
         refreshing={update}
         renderItem={({ item }) => (
-          <Item favoriteStyle={Object.keys(favorite).includes(item.id)?styles.favoriteStyle:null} coin={item} favorite={handleFavorite}  />
+          <Item
+            favoriteStyle={
+              Object.keys(favorites).includes(item.id)
+                ? styles.favoriteStyle
+                : null
+            }
+            coin={item}
+            favorite={handleFavorite}
+          />
         )}
         onRefresh={async () => {
           setUpdate(true);
@@ -138,12 +136,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
   },
-  favoriteStyle:{
-    borderColor:"gold",
-    borderLeftWidth:1,
-    borderTopWidth:1,
-    borderStartColor:"#b0a310"
-
-    
-}
+  favoriteStyle: {
+    borderColor: "gold",
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderStartColor: "#b0a310",
+  },
 });
