@@ -1,4 +1,4 @@
-import { GET_COINS, GET_FAVORITES } from "./types";
+import { GET_COINS, GET_FAVORITES,GET_TOKEN } from "./types";
 
 export default (state, action) => {
   const { payload, type } = action;
@@ -14,6 +14,11 @@ export default (state, action) => {
         ...state,
         favorites: payload,
       };
+      case GET_TOKEN:
+        return {
+          ...state,
+          token: payload,
+        };
     default:
       return state;
   }

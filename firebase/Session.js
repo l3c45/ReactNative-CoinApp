@@ -7,6 +7,20 @@ import {
 } from "firebase/auth";
 import { auth } from "./Config";
 
+export const checkIsLogged =(callback) =>{
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log("session  " + uid);
+    callback({ loading: false, token: true ,uid:uid });
+  } else {
+    callback({ loading: false, token: false ,uid:null});
+  }
+});
+
+} 
+
 
 
 export const isLogged=  () =>{

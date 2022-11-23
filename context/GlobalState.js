@@ -8,7 +8,7 @@ import { APIRequest } from "../utils/API";
 
 const GlobalState = (props) => {
   const initialState = {
-    token:null,
+    token:{ loading: true, token: false ,uid:null},
     coins: [],
     favorites: {},
   };
@@ -33,6 +33,14 @@ const GlobalState = (props) => {
     }
   };
 
+  const getToken =  (data) => {
+    try {
+      dispatch({ type: GET_TOKEN, payload:data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <GlobalContext.Provider
@@ -41,7 +49,8 @@ const GlobalState = (props) => {
         coins: state.coins,
         favorites: state.favorites,
         getCoins,
-        getFavorites
+        getFavorites,
+        getToken
       }}
     >
       {props.children}
