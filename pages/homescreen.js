@@ -9,36 +9,31 @@ import {
 } from "react-native";
 import { useContext, useState, useCallback,useEffect } from "react";
 import Item from "../components/Item";
-import { signOutUser } from "../firebase/Session";
-import { Icon, Avatar } from "@rneui/base";
-import { useTheme } from '@react-navigation/native';
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { Icon } from "@rneui/base";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { getFromDBandSet, listener } from "../firebase/database";
-
 import GlobalContext from "../context/GlobalContext";
 
 
 export default function Homescreen() {
+
   const navigation = useNavigation();
 
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
 
-  const { theme,deleteFav, token, favorites, coins, getCoins, getFavorites } =
+  const {  token, favorites, coins, getCoins, getFavorites } =
     useContext(GlobalContext);
    
     const { colors } = useTheme();
 
-
 useEffect(() => {
-  getCoins();
-
+         getCoins()
         const unsubscribe = listener(token.uid, getFavorites);
         //signOutUser()
-  
         return () => unsubscribe();
-      }, [deleteFav])
+      }, [])
 
 
   const handleFavorite = (data) => {

@@ -6,7 +6,7 @@ import GlobalReducer from "./GlobalReducer";
 import { GET_COINS,GET_FAVORITES,GET_TOKEN,SET_THEME } from "./types";
 import { APIRequest } from "../utils/API";
 
-import { DarkTheme } from "../Theme/Theme";
+
 
 const GlobalState = (props) => {
   const initialState = {
@@ -62,12 +62,10 @@ const GlobalState = (props) => {
         token:state.token,
         coins: state.coins,
         favorites: state.favorites,
-        
         theme:state.theme,
         getCoins,
         getFavorites,
         getToken,
-        
         setTheme
       }}
     >
