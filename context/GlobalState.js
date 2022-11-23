@@ -13,7 +13,7 @@ const GlobalState = (props) => {
     token:{ loading: true, token: false ,uid:null},
     coins: [],
     favorites: {},
-    theme:'Light'
+    theme:'Dark'
    
   };
 

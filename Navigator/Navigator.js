@@ -4,7 +4,8 @@ import { StatusBar } from "react-native";
 import GlobalContext from "../context/GlobalContext";
 import SplashCreen from "../pages/SplashCreen";
 import { DarkTheme, LightTheme } from "../Theme/Theme";
-import MyStack from "./MyStack";
+import Logged from "./Logged";
+import NoLogged from "./NoLogged";
 
 const Navigator = () => {
 
@@ -18,7 +19,11 @@ const Navigator = () => {
         <>
           <StatusBar></StatusBar>
           <NavigationContainer  theme={theme == 'Light' ? LightTheme : DarkTheme}>
-            <MyStack></MyStack>
+          {token.token ? 
+          <Logged></Logged>
+          :
+          <NoLogged></NoLogged>
+          }
           </NavigationContainer>
         </>
       }
