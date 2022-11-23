@@ -1,9 +1,7 @@
 import React, { useReducer } from "react";
-
 import GlobalContext from "./GlobalContext";
 import GlobalReducer from "./GlobalReducer";
-
-import { GET_COINS,GET_FAVORITES,GET_TOKEN,SET_THEME } from "./types";
+import { GET_COINS,GET_FAVORITES,GET_TOKEN} from "./types";
 import { APIRequest } from "../utils/API";
 
 
@@ -12,9 +10,7 @@ const GlobalState = (props) => {
   const initialState = {
     token:{ loading: true, token: false ,uid:null},
     coins: [],
-    favorites: {},
-    theme:'Dark'
-   
+    favorites: {}
   };
 
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
@@ -45,28 +41,15 @@ const GlobalState = (props) => {
     }
   };
 
-
-
-  const setTheme =  (value) => {
-   
-    dispatch({ type: SET_THEME, payload:value });
-  
-};
-
-  
-
-
   return (
     <GlobalContext.Provider
       value={{
         token:state.token,
         coins: state.coins,
         favorites: state.favorites,
-        theme:state.theme,
         getCoins,
         getFavorites,
         getToken,
-        setTheme
       }}
     >
       {props.children}

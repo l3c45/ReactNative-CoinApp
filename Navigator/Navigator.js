@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
-import GlobalContext from "../context/GlobalContext";
 import SplashCreen from "../pages/SplashCreen";
 import { DarkTheme, LightTheme } from "../Theme/Theme";
 import Logged from "./Logged";
 import NoLogged from "./NoLogged";
+import ThemeContext from "../context/ThemeContext/ThemeContext";
+import GlobalContext from "../context/GlobalContext";
 
 const Navigator = () => {
 
-  const { token ,theme} = useContext(GlobalContext);
+  const {theme} = useContext(ThemeContext);
+  const {token}=useContext(GlobalContext)
   
   return (
     <>

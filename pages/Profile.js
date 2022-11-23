@@ -4,6 +4,7 @@ import { signOutUser } from "../firebase/Session";
 import { deleteFromDB, listener } from "../firebase/database";
 import { useNavigation,useTheme } from "@react-navigation/native";
 import GlobalContext from "../context/GlobalContext";
+import ThemeContext  from "../context/ThemeContext/ThemeContext";
 import FavoriteItem from "../components/FavoriteItem";
 import { Button,Switch } from "@rneui/themed";
 
@@ -15,8 +16,11 @@ const Profile = () => {
   const [remove, setRemove] = useState(false);
   const [toggle, setToggle] = useState(false)
 
-  const { getFavorites, theme, setTheme, favorites, coins, token } =
+  const { getFavorites,  favorites, coins, token } =
     useContext(GlobalContext);
+    const { theme,setTheme} =
+    useContext(ThemeContext);
+
   const { colors } = useTheme();
 
   useEffect(() => {
