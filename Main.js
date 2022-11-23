@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import GlobalContext from "./context/GlobalContext";
 import { checkIsLogged } from "./firebase/Session";
 import Navigator from "./Navigator/Navigator";
+import SplashCreen from "./pages/SplashCreen";
 
 export default function Main() {
   const {  getToken } = useContext(GlobalContext);
@@ -13,5 +14,6 @@ export default function Main() {
 
   return (
    <Navigator></Navigator>
+ 
   );
 }

@@ -11,11 +11,12 @@ import { useContext, useState, useCallback,useEffect } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
 import { Icon, Avatar } from "@rneui/base";
-
+import { useTheme } from '@react-navigation/native';
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getFromDBandSet, listener } from "../firebase/database";
 
 import GlobalContext from "../context/GlobalContext";
+
 
 export default function Homescreen() {
   const navigation = useNavigation();
@@ -24,19 +25,11 @@ export default function Homescreen() {
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
 
-  const { deleteFav, token, favorites, coins, getCoins, getFavorites } =
+  const { theme,deleteFav, token, favorites, coins, getCoins, getFavorites } =
     useContext(GlobalContext);
+   
+    const { colors } = useTheme();
 
-//   useFocusEffect(
-//     useCallback(() => {
-//       getCoins();
-// console.log("run")
-//       const unsubscribe = listener(token.uid, getFavorites);
-//       //signOutUser()
-
-//       return () => unsubscribe();
-//     }, [deleteFav])
-//   );
 
 useEffect(() => {
   getCoins();
@@ -57,9 +50,9 @@ useEffect(() => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor: colors.background },]}>
       <View style={styles.header}>
-        <Text style={styles.title}></Text>
+        <Text style={[styles.title,{color: colors.text }]}></Text>
         {search ? (
           <TextInput
             onBlur={(e) => setSearch(false)}
@@ -67,13 +60,13 @@ useEffect(() => {
             onChangeText={(text) => handeTextInput(text)}
             placeholderTextColor={"#A4B3BF"}
             placeholder="Search"
-            style={styles.textInput}
+            style={[styles.textInput,{color: colors.text}]}
             autoFocus={true}
             maxLength={20}
           ></TextInput>
         ) : (
           <Icon
-            color="#fff"
+            color={colors.text}
             containerStyle={{}}
             disabledStyle={{}}
             iconProps={{}}
@@ -88,6 +81,7 @@ useEffect(() => {
       </View>
 
       <FlatList
+     overScrollMode="never"
         keyExtractor={(item) => item.id}
         initialNumToRender={20}
         maxToRenderPerBatch={20}
@@ -121,7 +115,6 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#112A40",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -131,8 +124,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-
-    color: "#fff",
   },
   header: {
     paddingTop: 0,
@@ -143,7 +134,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
-    color: "#fff",
     fontSize: 20,
   },
   favoriteStyle: {

@@ -3,15 +3,18 @@ import React, { useReducer } from "react";
 import GlobalContext from "./GlobalContext";
 import GlobalReducer from "./GlobalReducer";
 
-import { GET_COINS,GET_FAVORITES,GET_TOKEN,DELETE_FAV } from "./types";
+import { GET_COINS,GET_FAVORITES,GET_TOKEN,SET_THEME } from "./types";
 import { APIRequest } from "../utils/API";
+
+import { DarkTheme } from "../Theme/Theme";
 
 const GlobalState = (props) => {
   const initialState = {
     token:{ loading: true, token: false ,uid:null},
     coins: [],
     favorites: {},
-    deleteFav:false
+    theme:'Light'
+   
   };
 
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
@@ -42,11 +45,15 @@ const GlobalState = (props) => {
     }
   };
 
-  const deleteFavorite =  (value) => {
+
+
+  const setTheme =  (value) => {
    
-      dispatch({ type: DELETE_FAV, payload:value });
-    
-  };
+    dispatch({ type: SET_THEME, payload:value });
+  
+};
+
+  
 
 
   return (
@@ -55,11 +62,13 @@ const GlobalState = (props) => {
         token:state.token,
         coins: state.coins,
         favorites: state.favorites,
-        deleteFav:state.deleteFav,
+        
+        theme:state.theme,
         getCoins,
         getFavorites,
         getToken,
-        deleteFavorite
+        
+        setTheme
       }}
     >
       {props.children}

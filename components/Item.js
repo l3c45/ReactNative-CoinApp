@@ -1,11 +1,12 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, View ,Image,StyleSheet, TouchableOpacity} from 'react-native'
+import { useTheme } from '@react-navigation/native';
 
 const Item = ({coin,favorite,favoriteStyle}) => {
 
     const navigation = useNavigation();
-
+    const { colors } = useTheme();
      //background: rgb(240,222,9);
 //background: linear-gradient(90deg, rgba(240,222,9,1) 31%, rgba(2,0,36,0) 100%);
   
@@ -15,10 +16,10 @@ const Item = ({coin,favorite,favoriteStyle}) => {
   <View style={styles.itemList} >
     <View style={[styles.logoName,favoriteStyle]}>
         <Image style={styles.logo} source={{uri:coin.image}} ></Image>
-        <Text style={[styles.name]} >{coin.name} </Text>
+        <Text style={[styles.name,{color:colors.text}]} >{coin.name} </Text>
         </View>
    <View style={styles.data} >
-        <Text style={styles.price} >{coin.current_price} US$ </Text>
+        <Text style={[styles.price,{color:colors.text}]} >{coin.current_price} US$ </Text>
         <Text style={[styles.percentage , coin.price_change_percentage_24h>0 ?styles.up :styles.down]} >{coin.price_change_percentage_24h} </Text>
   </View>
   </View>
@@ -44,7 +45,7 @@ const styles= StyleSheet.create({
     name:{
         
         fontSize: 18,
-       color:"#fff"
+      
     },
     itemList:{
         marginVertical:10,
@@ -55,7 +56,7 @@ const styles= StyleSheet.create({
     price:{
        
         textAlign:"right",
-        color:"#fff"
+
     },
     percentage:{
        

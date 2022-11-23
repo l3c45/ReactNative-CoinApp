@@ -3,10 +3,12 @@ import React ,{useState,useCallback}from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
 import { listener } from "../firebase/database";
+import { useTheme } from '@react-navigation/native';
 
 const FavoriteItem = ({coin, notify ,remove}) => {
   
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   
 
@@ -22,7 +24,7 @@ const FavoriteItem = ({coin, notify ,remove}) => {
         
           
             <Image style={styles.logo} source={{ uri: coin.image }}></Image>
-            <Text style={styles.name}>{coin.name} </Text>
+            <Text style={[styles.name,{color:colors.text}]}>{coin.name} </Text>
           
       </TouchableOpacity>
       <View style={styles.data}>
@@ -38,7 +40,7 @@ const FavoriteItem = ({coin, notify ,remove}) => {
           style={styles.up}
           name="bell"
           type="feather"
-          color="#fff"
+          color={colors.text}
           onPress={() => notify(coin)}
         />
       </View>
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    color: "#fff",
+    
   },
   itemList: {
     marginVertical: 10,
