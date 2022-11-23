@@ -1,4 +1,4 @@
-import { GET_COINS, GET_FAVORITES,GET_TOKEN } from "./types";
+import { DELETE_FAV, GET_COINS, GET_FAVORITES,GET_TOKEN } from "./types";
 
 export default (state, action) => {
   const { payload, type } = action;
@@ -19,6 +19,11 @@ export default (state, action) => {
           ...state,
           token: payload,
         };
+        case DELETE_FAV:
+          return {
+            ...state,
+            deleteFav: payload,
+          };
     default:
       return state;
   }

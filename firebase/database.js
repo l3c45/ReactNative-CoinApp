@@ -13,7 +13,7 @@ export const listener = (uid,callback) => {
   const ref = doc(db, "favorites", uid);
   const unsb = onSnapshot(ref, (doc) => {
     const favorites = doc.data();
-    console.log(favorites);
+   // console.log(favorites);
     callback(favorites)
   });
   return unsb;

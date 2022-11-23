@@ -7,7 +7,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState, useCallback,useEffect } from "react";
 import Item from "../components/Item";
 import { signOutUser } from "../firebase/Session";
 import { Icon, Avatar } from "@rneui/base";
@@ -17,29 +17,39 @@ import { getFromDBandSet, listener } from "../firebase/database";
 
 import GlobalContext from "../context/GlobalContext";
 
-export default function Homescreen({ token }) {
+export default function Homescreen() {
   const navigation = useNavigation();
 
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [search, setSearch] = useState(false);
 
-  const { favorites, coins, getCoins, getFavorites } =
+  const { deleteFav, token, favorites, coins, getCoins, getFavorites } =
     useContext(GlobalContext);
 
-  useFocusEffect(
-    useCallback(() => {
-      getCoins();
+//   useFocusEffect(
+//     useCallback(() => {
+//       getCoins();
+// console.log("run")
+//       const unsubscribe = listener(token.uid, getFavorites);
+//       //signOutUser()
 
-      const unsubscribe = listener(token, getFavorites);
-      //signOutUser()
+//       return () => unsubscribe();
+//     }, [deleteFav])
+//   );
 
-      return () => unsubscribe();
-    }, [])
-  );
+useEffect(() => {
+  getCoins();
+
+        const unsubscribe = listener(token.uid, getFavorites);
+        //signOutUser()
+  
+        return () => unsubscribe();
+      }, [deleteFav])
+
 
   const handleFavorite = (data) => {
-    getFromDBandSet(token, data.id);
+    getFromDBandSet(token.uid, data.id);
   };
 
   const handeTextInput = (input) => {

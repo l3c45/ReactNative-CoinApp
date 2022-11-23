@@ -66,6 +66,7 @@ export const loginUser = async (user) => {
 export const signOutUser = async () => {
   try {
     const logout = await signOut(auth);
+    
     return true;
   } catch {
     (e) => console.log(e);

@@ -17,7 +17,7 @@ const LoginForm = () => {
 
       const loginUserForm=await loginUser(user)
       
-      loginUserForm && navigation.replace("Home")
+      //loginUserForm && navigation.replace("Home")
       !loginUserForm && setError(true)
     }catch{e=> console.log(e)
 

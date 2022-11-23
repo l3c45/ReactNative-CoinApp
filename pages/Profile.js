@@ -7,12 +7,12 @@ import { deleteFromDB } from "../firebase/database";
 import { useNavigation } from "@react-navigation/native";
 import GlobalContext from "../context/GlobalContext";
 
-const Profile = ({ token }) => {
+const Profile = ({  }) => {
   const navigation = useNavigation();
 
   const [notification, setNotification] = useState(null);
 
-  const { favorites, coins } = useContext(GlobalContext);
+  const { deleteFav,deleteFavorite,favorites, coins,token } = useContext(GlobalContext);
 
   const handleNotification = (coin) => {
     console.log(coin);
@@ -20,7 +20,8 @@ const Profile = ({ token }) => {
   };
 
   const handleRemove = (coin) => {
-    deleteFromDB(coin.id, token);
+    deleteFromDB(coin.id, token.uid)
+    deleteFavorite(!deleteFav)
   };
 
   return (
@@ -44,7 +45,7 @@ const Profile = ({ token }) => {
       ></FlatList>
       <Button
         onPress={() => {
-          signOutUser(), navigation.replace("Login");
+          signOutUser()// navigation.replace("Login");
         }}
         title="Cerrar session"
       ></Button>

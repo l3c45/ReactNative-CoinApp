@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import GlobalContext from "./GlobalContext";
 import GlobalReducer from "./GlobalReducer";
 
-import { GET_COINS,GET_FAVORITES,GET_TOKEN } from "./types";
+import { GET_COINS,GET_FAVORITES,GET_TOKEN,DELETE_FAV } from "./types";
 import { APIRequest } from "../utils/API";
 
 const GlobalState = (props) => {
@@ -11,6 +11,7 @@ const GlobalState = (props) => {
     token:{ loading: true, token: false ,uid:null},
     coins: [],
     favorites: {},
+    deleteFav:false
   };
 
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
@@ -41,6 +42,12 @@ const GlobalState = (props) => {
     }
   };
 
+  const deleteFavorite =  (value) => {
+   
+      dispatch({ type: DELETE_FAV, payload:value });
+    
+  };
+
 
   return (
     <GlobalContext.Provider
@@ -48,9 +55,11 @@ const GlobalState = (props) => {
         token:state.token,
         coins: state.coins,
         favorites: state.favorites,
+        deleteFav:state.deleteFav,
         getCoins,
         getFavorites,
-        getToken
+        getToken,
+        deleteFavorite
       }}
     >
       {props.children}

@@ -8,6 +8,7 @@ export default function Main() {
 
   useEffect(() => {
     const unsuscribe = checkIsLogged(getToken);
+    return () => unsuscribe()
   }, []);
 
   return (

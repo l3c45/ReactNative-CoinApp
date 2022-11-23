@@ -50,24 +50,19 @@ const Navigator = () => {
                     ),
                   })}
                   name="Home"
-                >
-                  {(props) => <Homescreen token={token.uid} />}
-                </Stack.Screen>
+                  component={Homescreen}
+                />
+                
+                
                 <Stack.Screen name="Detail" component={Coindetail} />
-
-                <Stack.Screen name="Profile">
-                  {(props) => <Profile token={token.uid} />}
-                </Stack.Screen>
-
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Profile" component={Profile}/>
+            
               </>
             ) : (
               <>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Home" component={Homescreen} />
-                <Stack.Screen name="Detail" component={Coindetail} />
+                
               </>
             )}
           </Stack.Navigator>
