@@ -21,11 +21,13 @@ const Profile = () => {
     const { theme,setTheme} =
     useContext(ThemeContext);
 
+
   const { colors } = useTheme();
 
   useEffect(() => {
     const unsubscribe = listener(token.uid, getFavorites);
-    return () => unsubscribe();
+    console.log("desde perfil")
+    return () => unsubscribe(), console.log("fin perfil")
   }, [remove]);
 
   const handleNotification = (coin) => {
@@ -65,10 +67,16 @@ const Profile = () => {
             coin={item}
           />
         )}
-        data={coins.filter((coin) => Object.keys(favorites).includes(coin.id))}
+        data={coins.filter((coin) => favorites&&(Object.keys(favorites).includes(coin.id)))}
         scrollEnabled={true}
         nestedScrollEnabled
       ></FlatList>
+      <Button
+        onPress={() => {
+          navigation.navigate("Chat");
+        }}
+        title="Chat Room"
+      ></Button>
       <Button
         onPress={() => {
           signOutUser(); // navigation.replace("Login");

@@ -32,7 +32,8 @@ useEffect(() => {
          getCoins()
         const unsubscribe = listener(token.uid, getFavorites);
         //signOutUser()
-        return () => unsubscribe();
+        console.log("home")
+        return () => unsubscribe(),console.log("fin homel")
       }, [])
 
 
@@ -87,10 +88,10 @@ useEffect(() => {
         refreshing={update}
         renderItem={({ item }) => (
           <Item
-            favoriteStyle={
-              Object.keys(favorites).includes(item.id)
+            favoriteStyle={favorites &&
+             ( Object.keys(favorites).includes(item.id)
                 ? styles.favoriteStyle
-                : null
+                : null)
             }
             coin={item}
             favorite={handleFavorite}
@@ -98,9 +99,8 @@ useEffect(() => {
         )}
         onRefresh={async () => {
           setUpdate(true);
-          await getData();
+          await  getCoins();
           setUpdate(false);
-          Alert.alert("updated");
         }}
       ></FlatList>
     </View>

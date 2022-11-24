@@ -6,6 +6,11 @@ import {
   updateDoc,
   deleteField,
   getDoc,
+  addDoc,
+    orderBy,
+    query,
+   
+    collection
 } from "firebase/firestore";
 
 export const listener = (uid,callback) => {
@@ -64,3 +69,25 @@ export const getFromDBandSet = async (uid, item) => {
     console.log("No such document, create one!");
   }
 };
+
+
+export const saveMessageChat = async (docs) => {
+  try {
+    const { _id, createdAt, text, user } = docs[0];    
+  const req = await addDoc(collection(db, 'chats'), {
+    _id,
+    createdAt,
+    text,
+    user
+  });
+
+  return req
+    
+  } catch (e) {
+    console.log(e)
+    
+  }
+
+  
+
+}

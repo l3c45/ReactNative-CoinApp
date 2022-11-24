@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Coindetail from "../pages/coindetail";
 import Profile from "../pages/Profile";
 import { Button, Icon } from "@rneui/themed";
+import Chat from "../pages/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,7 @@ const { colors } = useTheme();
         name="Home"
         component={Homescreen}
       />
-
+<Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="Detail" component={Coindetail} />
       <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>

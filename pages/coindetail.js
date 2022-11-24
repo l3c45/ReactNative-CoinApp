@@ -12,9 +12,14 @@ import Graph from "../components/Graph";
 import { APICoin } from "../utils/API";
 import { Button } from "@rneui/themed";
 import * as WebBrowser from "expo-web-browser";
+import { useNavigation, useTheme } from "@react-navigation/native";
+
 
 const Coindetail = ({ route }) => {
+
   const coin = route.params.coin;
+
+  const { colors } = useTheme();
 
   const [refreshing, setRefreshing] = useState(false);
   const [result, setResult] = useState(null);
@@ -22,7 +27,6 @@ const Coindetail = ({ route }) => {
 
   const getData = async (coin) => {
     const dataApi = await APICoin(coin);
-
     setData(dataApi);
   };
 
@@ -64,25 +68,25 @@ const Coindetail = ({ route }) => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={[styles.container,{backgroundColor:colors.background}]}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       <View>
         <View style={styles.top}>
-          <Text style={[styles.text, styles.title]}>{coin.name}</Text>
+          <Text style={[styles.text, styles.title,{color:colors.text}]}>{coin.name}</Text>
           <Image style={styles.img} source={{ uri: coin.image }}></Image>
         </View>
         <View style={styles.middle}>
-          <Text style={[styles.text, styles.subtitle, styles.left]}>
+          <Text style={[styles.text, styles.subtitle, styles.left,{color:colors.text}]}>
             Price:
           </Text>
-          <Text style={[styles.text, styles.subtitle, styles.right]}>
+          <Text style={[styles.text, styles.subtitle, styles.right,{color:colors.text}]}>
             {coin.current_price} USD
           </Text>
 
-          <Text style={[styles.text, styles.subtitle, styles.left]}>
+          <Text style={[styles.text, styles.subtitle, styles.left,{color:colors.text}]}>
             Variation:
           </Text>
           <Text
@@ -95,38 +99,38 @@ const Coindetail = ({ route }) => {
             {coin.price_change_percentage_24h}%
           </Text>
 
-          <Text style={[styles.text, styles.subtitle, styles.left]}>
+          <Text style={[styles.text, styles.subtitle, styles.left,{color:colors.text}]}>
             Last update:
           </Text>
-          <Text style={[styles.text, styles.subtitle, styles.right]}>
+          <Text style={[styles.text, styles.subtitle, styles.right,{color:colors.text}]}>
             {new Date(coin.last_updated).toLocaleString()}
           </Text>
         </View>
-        <View style={styles.box}>
-          <Text style={[styles.text, styles.textBottom, styles.left]}>
+        <View style={[styles.box,{backgroundColor:colors.card}]}>
+          <Text style={[styles.text, styles.textBottom, styles.left,{color:colors.text}]}>
             High last 24hs:
           </Text>
-          <Text style={[styles.text, styles.textBottom, styles.right]}>
+          <Text style={[styles.text, styles.textBottom, styles.right,{color:colors.text}]}>
             {coin.high_24h}USD
           </Text>
 
-          <Text style={[styles.text, styles.textBottom, styles.left]}>
+          <Text style={[styles.text, styles.textBottom, styles.left,{color:colors.text}]}>
             Low last 24hs:
           </Text>
-          <Text style={[styles.text, styles.textBottom, styles.right]}>
+          <Text style={[styles.text, styles.textBottom, styles.right,{color:colors.text}]}>
             {coin.low_24h}USD
           </Text>
-          <Text style={[styles.text, styles.textBottom, styles.left]}>
+          <Text style={[styles.text, styles.textBottom, styles.left,{color:colors.text}]}>
             Circulating Supply:
           </Text>
-          <Text style={[styles.text, styles.textBottom, styles.right]}>
+          <Text style={[styles.text, styles.textBottom, styles.right,{color:colors.text}]}>
             {coin.circulating_supply}
           </Text>
 
-          <Text style={[styles.text, styles.textBottom, styles.left]}>
+          <Text style={[styles.text, styles.textBottom, styles.left,{color:colors.text}]}>
             Total Supply:
           </Text>
-          <Text style={[styles.text, styles.textBottom, styles.right]}>
+          <Text style={[styles.text, styles.textBottom, styles.right,{color:colors.text}]}>
             {coin.total_supply}
           </Text>
         </View>
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 5,
     flex: 1,
-    backgroundColor: "#112A40",
+    
   },
   loading: {
     height: 200,
